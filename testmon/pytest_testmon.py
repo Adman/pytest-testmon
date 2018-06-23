@@ -221,6 +221,7 @@ class TestmonDeselect(object):
             del self.testmon_data.reports[item.nodeid]
 
     def pytest_runtest_logreport(self, report):
+        assert report.when not in [r['when'] for r in self.testmon_data.reports[report.nodeid]]
         self.testmon_data.reports[report.nodeid].append(serialize_report(report))
 
     class FakeItemFromTestmon(object):
